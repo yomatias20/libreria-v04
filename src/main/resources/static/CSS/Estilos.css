@@ -1,0 +1,1250 @@
+
+body {
+    background-image: url(../Imágenes/Libros-transparente.jpg);
+    background-size: cover;
+}
+
+/* Propiedad outline: Permite visualizar la disposición de los elementos a la hora del maquetado. 
+* {
+    outline: 1px solid red;
+}
+*/
+
+/* Clases por orden alfabético. Si no está aquí es de Bootstrap. 
+
+Abreviatura de las páginas que utilizan cada clase:
+
+ADM: administrador.html
+AOU: adm_o_usuario.html
+AUT: autor.html
+BCD: busq_clientes_dni.html
+BCE: busq_clientes_email.html
+BCI: busq_clientes_id.html
+BCN: busq_clientes_nombre.html
+BCT: busq_clientes_telefono.html
+BLA: busq_libros_autor.html
+BLE: busq_libros_editorial.html
+BLI: busq_libros_isbn.html
+BLT: busq_libros_titulo.html
+CGA: carga_autor.html
+CGC: carga_cliente.html
+CGL: carga_libro.html
+CGP: carga_prestamo.html
+CLI: cliente.html
+CPW: cambio_password.html
+DVL: devolucion.html
+EAU: edicion_autor.html
+ECL: edicion_cliente.html
+ELI: edicion_libro.html
+ERR: páginas de error (carpeta error)
+IND: index.html
+LCL: lista_clientes.html
+LIB: libros.html
+LLI: lista_libros.html
+LOG: login.html
+LPC: list_prest_x_cliente.html
+LPL: list_prest_x_libro.html
+PAU: portal_autores.html
+PCL: portal_clientes.html
+PED: portal-editoriales.html
+PLI: portal_libros.html
+PPR: portal_prestamos.html
+UBJ: usuario_de_baja.html
+USU: usuario.html
+
+*/
+
+.as-fs { /* CGL */
+    align-self: flex-start;
+}
+
+.atributo { /* LIB */
+    font-size: 1.2em;
+    color: rgb(85, 49, 82);
+}
+
+.atributo2 { /* LIB */
+    font-size: 1em;
+    color: rgb(85, 49, 82);
+}
+
+.atributo3 { /* CGL ELI */
+    font-size: 1em;
+    margin-left: 9px;
+    margin-top: 8px;
+}
+
+.atributo4 { /* ELI */
+    font-size: 1em;
+    margin-left: 9px;
+    margin-top: 5px;
+}
+
+.atributo5 { /* ELI */
+    font-size: 1em;
+    margin-left: 9px;
+    align-self: flex-start;
+}
+
+.atributo6 { /* ECL */
+    font-size: 1em;
+    margin-left: 9px;
+    padding-top: 10px;
+    align-self: center;
+}
+
+.atributo7 { /* DVL */
+    font-size: 1.1em;
+}
+
+.atributo-rojo { /* LPC */
+    color: red;
+}
+
+.base-doble { /* LPC LPL */
+    border-bottom: 5px double orangered;
+}
+
+.boton { /* ADM AOU AUT BCD BCE BCI BCN BCT BLA BLE BLI BLT CGA CGC CGL CGP CLI CPW 
+        DVL EAU ECL ERR IND LIB LLI LOG LPC LPL PAU PCL PED PLI PPR UBJ USU */
+    background-color: rgb(233, 165, 83);
+    color: white;
+    font-size: large;
+    text-align: center;
+    width: 230px;
+    padding: 12px;
+    border-radius: 60px;
+    border: 5px solid darkslateblue;
+    display: inline-block;
+}
+
+.boton:hover { /* ídem .boton */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.boton2 { /* AUT CLI LIB */
+    background-color: rgb(233, 165, 83);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    padding: 7px;
+    padding-top: 4px;
+    border: 2px solid darkslateblue;
+    display: inline-block;
+}
+
+.boton2:hover { /* ídem .boton2 */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.boton3 { /* PED */
+    background-color: rgb(233, 165, 83);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 7px;
+    padding-top: 4px;
+    border: 2px solid darkslateblue;
+}
+
+.boton3:hover { /* ídem .boton3 */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.boton4 { /* LPC LPL */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    font-weight: lighter;
+    background-color: rgb(233, 165, 83);
+    color: white;
+    text-align: center;
+    width: 90px;
+    height: 30px;
+    border-radius: 10px;
+    padding-top: 2px;
+    border: 2px solid darkslateblue;
+    justify-self: center;
+}
+
+.boton4:hover { /* ídem .boton4 */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.boton5 { /* LPC */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    font-weight: lighter;
+    background-color: rgb(233, 165, 83);
+    color: white;
+    text-align: center;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    padding-top: 2px;
+    border: 2px solid darkslateblue;
+    justify-self: center;
+}
+
+.boton5:hover { /* ídem .boton5 */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.boton-2lineas { /* CLI */
+    background-color: rgb(233, 165, 83);
+    color: white;
+    font-size: 0.95em;
+    text-align: center;
+    height: 60px;
+    width: 230px;
+    padding: 2px;
+    border-radius: 60px;
+    border: 5px solid darkslateblue;
+    display: inline-block;
+}
+
+.boton-2lineas:hover { /* ídem .boton-2lineas */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.boton-letra-mas-peq { /* AOU LPC LPL */
+    background-color: rgb(233, 165, 83);
+    color: white;
+    font-size: 0.95em;
+    text-align: center;
+    height: 60px;
+    width: 230px;
+    padding: 12px;
+    border-radius: 60px;
+    border: 5px solid darkslateblue;
+    display: inline-block;
+}
+
+.boton-letra-mas-peq:hover { /* ídem .boton-letra-mas-peq */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.boton-letra-peq { /* AUT BCD BCN CLI LCL LPL PED */
+    background-color: rgb(233, 165, 83);
+    color: white;
+    font-size: medium;
+    text-align: center;
+    height: 60px;
+    width: 230px;
+    padding: 12px;
+    border-radius: 60px;
+    border: 5px solid darkslateblue;
+    display: inline-block;
+}
+
+.boton-letra-peq:hover { /* ídem .boton-letra-peq */
+    color: rgb(191, 213, 213);
+    text-decoration: none;
+}
+
+.centrado { /* LPC LPL */
+    justify-items: center;
+}
+
+.centrado2 { /* LPC LPL */
+    justify-self: center;
+}
+
+.centrado3 { /* IND */
+    display: flex;
+    justify-content: center;
+}
+
+.centrado4 { /* BCD BCE BCN BCT CLI LCL */
+    margin: 0 auto;
+}
+
+.centrado-ficticio { /* LPL */
+    padding-left: 3px;
+    padding-right: 90px;
+    justify-self: end;
+}
+
+.centrado-ficticio2 { /* LPL */
+    padding-left: 43px;
+    padding-right: 50px;
+    justify-self: end;
+}
+
+.contenedor-1f2c-botones { /* BCD BCE BCI BCN BCT BLA BLE BLI BLT CGA CGC CGL CGP CPW DVL EAU ECL ELI LCL LLI LOG UBJ */
+    display: grid;
+    width: 650px;
+    grid-template-columns: 200px 200px;
+    justify-content: space-evenly;
+}
+
+.contenedor-1f2c-botones2 { /* PED */
+    display: grid;
+    width: 250px;
+    grid-template-columns: 100px 100px;
+    margin-left: 60px;
+    justify-content: space-evenly;
+}
+
+.contenedor-1f2c-espaciado { /* AUT CLI LIB LPC */
+    display: grid;
+    grid-template-columns: 100px 100px;
+    justify-content: space-evenly;
+}
+
+.contenedor-1f3c { /* BLI */
+    display: grid;
+    grid-template-rows: 45px;
+    grid-template-columns: 150px 140px 300px;
+}
+
+.contenedor-1f3c-2 { /* BCE BCI BCN BLT */
+    display: grid;
+    grid-template-rows: 45px;
+    grid-template-columns: 122px 300px 300px;
+}
+
+.contenedor-1f3c-3 { /* BLA */
+    display: grid;
+    grid-template-rows: 45px;
+    grid-template-columns: 122px 360px 300px;
+}
+
+.contenedor-1f3c-4 { /* BLE */
+    display: grid;
+    grid-template-rows: 45px;
+    grid-template-columns: 122px 440px 300px;
+}
+
+.contenedor-1f3c-5 { /* BCD BCT */
+    display: grid;
+    grid-template-rows: 45px;
+    grid-template-columns: 67px 240px 300px;
+}
+
+.contenedor-1f4c-3 { /* PED */
+    display: grid;
+    grid-template-columns: 180px 370px 250px 250px;
+    grid-gap: 30px;
+    margin-left: 60px;
+}
+
+.contenedor-1f4c-4 { /* PED */
+    display: grid;
+    grid-template-columns: 440px 120px 250px 250px;
+    grid-gap: 30px;
+    margin-left: 60px;
+}
+
+.contenedor-1f4c-5 { /* LPC */
+    display: grid;
+    grid-template-columns: 420px 435px 180px 180px;
+}
+
+.contenedor-1f4c-6 { /* LPC */
+    display: grid;
+    grid-template-columns: 460px 400px 180px 180px;
+    margin-left: -40px;
+}
+
+.contenedor-1f4c-7 { /* LPL */
+    display: grid;
+    grid-template-columns: 230px 230px 230px 230px;
+    margin-left: 40px;
+    margin-right: 40px;
+    justify-content: space-evenly;
+}
+
+.contenedor-1f4c-8 { /* LPL */
+    display: grid;
+    width: 1330px;
+    grid-template-columns: 70px 480px 70px 480px;
+    grid-gap: 10px;
+}
+
+.contenedor-1f4c-9 { /* LPL */
+    display: grid;
+    grid-template-columns: 120px 535px 180px 180px;
+}
+
+.contenedor-1f4c-10 { /* LPL */
+    display: grid;
+    grid-template-columns: 120px 500px 180px 180px;
+}
+
+.contenedor-1f5c { /* LPL */
+    display: grid;
+    grid-template-columns: 80px 40px 500px 180px 180px;
+}
+
+.contenedor-2f2c { /* LPC */
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-row-gap: 30px;
+}
+
+.contenedor-9f { /* LIB */
+    grid-row-start: 1;
+    grid-row-end: 10;
+}
+
+.contenedor-autor-libros { /* AUT */
+    display: grid;
+    grid-template-rows: 50px 40px 310px;
+    grid-template-columns: 350px 350px;
+    height: 400px;
+    width: 700px;
+}
+
+.contenedor-autor-principal { /* AUT */
+    display: grid;
+    grid-template-columns: 40px 700px 700px;
+    grid-gap: 20px;
+    height: 400px;
+    width: 1460px;
+}
+
+.contenedor-barra-nav { /* Todas. */
+display: flex;
+height: 60px;
+justify-content: space-evenly;
+background-color: darkslateblue;
+align-items: center;
+justify-items: center;
+position: sticky;
+top: 0px;
+}
+
+.contenedor-boton-centrado1 { /* AUT */
+    text-align: center;
+}
+
+.contenedor-boton-centrado2 { /* ADM ERR PCL PLI PPR USU */
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-cambio-password { /* CPW */
+    display: grid;
+    grid-template-rows: 45px 45px 45px;
+    grid-template-columns: 300px 550px;
+    align-items: center;
+}
+
+
+.contenedor-carga-autor { /* CGA EAU */
+    display: grid;
+    grid-template-rows: 440px;
+    grid-template-columns: 60px 350px 900px;
+    grid-gap: 30px;
+}
+
+.contenedor-carga-cliente { /* CGC */
+    display: grid;
+    grid-template-rows: 45px 45px 45px 45px 45px 45px 45px 45px 55px;
+    grid-template-columns: 200px 550px;
+    align-items: center;
+}
+
+.contenedor-carga-libro { /* CGL ELI */
+    display: grid;
+    grid-template-rows: 45px 45px 45px 45px 45px 45px 52px 89px;
+    grid-template-columns: 280px 350px 800px;
+    align-items: center;
+}
+
+.contenedor-carga-prestamo { /* CGP */
+    display: grid;
+    grid-template-rows: 45px 45px 85px;
+    grid-template-columns: 180px 500px;
+    align-items: center;
+}
+
+.contenedor-centrado { /* AUT */
+    text-align: center;
+    display: flex;
+    margin-right: 20px;
+    height: 60px;
+}
+
+.contenedor-centrado2 { /* AUT */
+    text-align: center;
+    display: flex;
+    width: 1000px;
+    padding-left: 453px;
+    height: 60px;
+}
+
+.contenedor-datos-cliente { /* CLI */
+    display: grid;
+    grid-template-rows: 40px 40px 40px 40px 40px 40px;
+    grid-template-columns: 220px 400px;
+    margin-left: 100px;
+}
+
+.contenedor-datos-cliente2 { /* LPC */
+    display: flex;
+    gap: 10px;
+}
+
+.contenedor-datos-devolucion { /* DVL */
+    display: grid;
+    grid-template-rows: 45px 45px 45px 45px;
+    grid-template-columns: 250px 450px;
+    margin-left: 100px;
+}
+
+.contenedor-datos-libro { /* LIB */
+    display: grid;
+    grid-template-rows: 25px 25px 25px 25px 25px 190px 22px 22px 22px;
+    grid-template-columns: 300px 200px 850px;
+    margin-left: 50px;
+    grid-gap: 5px;
+}
+
+.contenedor-datos-lista-clientes { /* BCN LCL */
+    display: grid;
+    grid-template-columns: 60px 140px 500px;
+    margin-left: 60px;
+}
+
+.contenedor-datos-lista-clientes2 { /* BCD BCE BCT */
+    display: grid;
+    grid-template-columns: 60px 140px 400px 150px;
+    grid-template-rows: 30px;
+    margin-left: 60px;
+}
+
+.contenedor-editar-cliente { /* ECL */
+    display: grid;
+    grid-template-rows: 45px 45px 45px 45px 45px 45px 55px;
+    grid-template-columns: 200px 550px;
+    align-items: center;
+}
+
+.contenedor-editar-resumen-libro { /* CGL ELI */
+    display: grid;
+    grid-row-start: 1;
+    grid-row-end: 9;
+    grid-column: 3;
+}
+
+.contenedor-enum-edit { /* PED */
+    display: grid;
+    grid-template-columns: 20px 10px 100px;
+    grid-gap: 2px;
+}
+
+.contenedor-flex { /* AOU AUT CLI IND LIB LPC PAU PED */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.contenedor-form-devolucion { /* DVL */
+    display: grid;
+    grid-template-rows: 55px;
+    grid-template-columns: 250px 450px;
+    margin-left: 100px;
+}
+
+.contenedor-input { /* AUT PAU PED */
+    margin-top: 10px;
+}    
+
+.contenedor-listas { /* AUT */
+    display: inline;
+    margin-left: 65px;
+}
+
+.contenedor-login { /* LOG */
+    display: grid;
+    grid-template-rows: 45px 45px;
+    grid-template-columns: 200px 550px;
+    align-items: center;
+}
+
+.contenedor-tit-lista-clientes { /* BCN LCL */
+    display: grid;
+    grid-template-columns: 200px 500px;
+    margin-left: 100px;
+}
+
+.contenedor-tit-lista-clientes2 { /* BCD BCE BCT */
+    display: grid;
+    grid-template-columns: 200px 400px 150px;
+    margin-left: 100px;
+}
+
+.desactivar { /* CLI LIB */
+    pointer-events: none;
+}
+
+.dialogo { /* AUT CLI LIB LPC */
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+}
+
+.dialogo-grande { /* LPC */
+    width: 450px;
+    height: 370px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+}
+
+.enlace-barra-nav { /* Todas donde hay sesión iniciada. */
+    font-size: 1.3em;
+    color: rgb(167, 167, 200);
+}
+
+.enlace-barra-nav:hover { /* ídem .enlace-barra-nav */
+    font-size: 1.3em;
+    color: rgb(193, 140, 62);
+    text-decoration: none;
+}
+
+.enlace-cliente-libro { /* LPC LPL */
+    font-family:'Garamond',serif;
+    font-weight: bold;
+    color: rgb(135, 52, 84);
+}
+
+.enlace-cliente-libro:hover { /* ídem enlace-cliente-libro */
+    font-family:'Garamond',serif;
+    font-weight: bold;
+    color: rgb(181, 107, 136);
+}
+
+.enlace-lista { /* PAU */
+    font-family:'Garamond',serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: rgb(97, 31, 32);
+}
+
+.enlace-lista:hover { /* ídem .enlace-lista */
+    font-family:'Garamond',serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: rgb(146, 97, 98);
+}
+
+.enlace-lista2 { /* AUT BCD BCE BCN BCT LCL LLI LTT */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(135, 52, 84);
+}
+
+.enlace-lista2:hover { /* ídem .enlace-lista2 */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(181, 107, 136);
+}
+
+.entrada { /* AUT CGA CGC CGL CGP CPW EAU ECL ELI LOG */
+    height: 40px;
+    width: 350px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-right: 44px;
+}
+
+.entrada2 { /* BCE BCN BLA BLE BLT PAU PED */
+    height: 40px;
+    width: 350px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.entrada3 { /* BCI BLI PED */
+    height: 40px;
+    width: 100px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.entrada4 { /* BCD BCT CGC ECL */
+    height: 40px;
+    width: 150px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.entrada5 { /* CGP */
+    height: 40px;
+    width: 350px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-left: 20px;
+    margin-right: 44px;
+}
+
+.entrada6 { /* CGP */
+    height: 40px;
+    width: 550px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-left: 20px;
+    margin-right: 44px;
+}
+
+.entrada7 { /* CGP */
+    height: 40px;
+    width: 200px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-left: 30px;
+    margin-right: 44px;
+}
+
+.entrada8 { /* LPC */
+    height: 40px;
+    width: 180px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.entrada9 { /* DVL */
+    height: 40px;
+    width: 220px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.entrada-bio { /* CGA EAU */
+    height: 370px;
+    width: 900px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.entrada-foto { /* CGA EAU */
+    height: 80px;
+    width: 350px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.entrada-resumen { /* ELI */
+    height: 350px;
+    width: 815px;
+    border: 2px solid darkslateblue;
+    border-radius: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-left: 20px;
+}
+
+.error { /* AUT PAU PED */
+    color: red;
+}
+
+.error2 { /* BLE BLI BLT */
+    color: red;
+    padding-left: 153px;
+}
+
+.error3 { /* CGC CGL CGP CPW ECL ELI LOG */
+    color: red;
+    padding-left: 60px;
+}
+
+.error4 { /* CGA EAU */
+    color: red;
+    padding-left: 90px;
+}
+
+.error5 { /* PED */
+    color: red;
+    padding-left: 78px;
+}
+
+.error6 { /* BLA */
+    color: red;
+    padding-left: 124px;
+}
+
+.error7 { /* BCI */
+    color: red;
+    padding-left: 175px;
+}
+
+.error8 { /* BCD BCE BCN */
+    color: red;
+    padding-left: 160px;
+}
+
+.error9 { /* BCT */
+    color: red;
+    padding-left: 143px;
+}
+
+.error10 { /* CLI LPC */
+    color: red;
+    padding-left: 100px;
+}
+
+.error11 { /* DVL */
+    color: red;
+    padding-left: 120px;
+}
+
+.espaciado { /* ADM BCD BCE BCN BCT CGC CGP CLI CPW ECL LCL LIB LOG LPC LPL PAU PCL PED PLI PPR USU */
+    height: 10px;
+}
+
+.espaciado2 { /* AUT BCD BCE BCI BCN BCT BLA BLE BLT CGC CGL CGP CLI CPW DVL 
+        EAU ECL ELI ERR LCL LIB LLI LOG LPC LPL PAU PCL PED PLI UBJ USU */
+    height: 40px;
+}
+
+.espacio-vacio { /* AUT */
+    display: flex;
+    margin-right: 20px;
+    width: 620px;
+}
+
+.espacio-vacio2 { /* PAU PED */
+    display: flex;
+    margin-right: 20px;
+    width: 577px;
+}
+
+.etiqueta { /* AUT PAU */
+    color: darkslateblue;
+    font-size: 1.05em;
+    font-weight: 550;
+    width: 170px;
+    margin: 18px;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+}
+
+.etiqueta2 { /* BLI */
+    color: darkslateblue;
+    font-size: 1.05em;
+    font-weight: 550;
+    width: 110px;
+    height: 45px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.etiqueta3 { /* BCD BCE BCI BCN BCT BLA BLT */
+    color: darkslateblue;
+    font-size: 1.05em;
+    font-weight: 550;
+    width: 300px;
+    height: 45px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.etiqueta4 { /* BLE */
+    color: darkslateblue;
+    font-size: 1.05em;
+    font-weight: 550;
+    width: 400px;
+    height: 45px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.etiqueta-letra-peq { /* PED */
+    color: darkslateblue;
+    font-size: 1em;
+    font-weight: 550;
+    width: 170px;
+    margin: 18px;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+}
+
+.etiqueta-letra-peq2 { /* PED */
+    color: darkslateblue;
+    font-size: 1em;
+    font-weight: 550;
+    width: 430px;
+    margin: 18px;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+}
+
+.fijo { /* LLI */
+    position: sticky;
+    top: 60px;
+}
+
+.fila35 { /* LPC LPL */
+    grid-template-rows: 35px;
+}
+
+.fondo { /* LLI */
+    background-color: rgb(244, 166, 138);
+}
+
+.imagen-autor { /* AUT */
+    height: 120px;
+    width: 120px;
+    margin-right: 10px;
+    float: inline-start;
+    border: 3px solid darkslateblue;
+    border-radius: 15px;
+}
+
+.imagen-libro { /* LIB LPC */
+    height: 420px;
+    width: 300px;
+    border: 4px solid darkslateblue;
+    border-radius: 20px;
+}
+
+.info { /* LCL LIB LLI */
+    margin-left: 57px;
+    color: rgb(48, 127, 48);
+}
+
+.info2 { /* AUT LOG PAU */
+    margin-left: 60px;
+    color: rgb(48, 127, 48);
+}
+
+.info3 { /* PED */
+    margin-left: 78px;
+    color: rgb(48, 127, 48);
+    line-height: 15px;
+}
+
+.info5 { /* CLI LPC */
+    margin-left: 100px;
+    color: rgb(48, 127, 48);
+}
+
+.info-azul { /* CGC CPW IND LOG PPR UBJ */
+    color: darkslateblue;
+}
+
+.lista-3-columnas { /* PAU PED */
+    column-count: 3;
+}
+
+.margen-izq { /* AUT */
+    margin-left: 50px;
+    height: 30px;
+}
+
+.mb20 { /* CLI */
+    margin-bottom: 20px;
+}
+
+.ml60 { /* CGC CPW ECL LOG LPC UBJ */
+    margin-left: 60px;
+}
+
+.ml100 { /* BCD BCE BCN BCT CGP CLI LPC LPL PPR */
+    margin-left: 100px;
+}
+
+.ml180 { /* AUT CLI */
+    margin-left: 180px;
+}
+
+.ml220 { /* CLI LIB */
+    margin-left: 220px;
+}
+
+.ml-negat { /* LPC LPL */
+    margin-left: -10px;
+}
+
+.nombre-atributo { /* CGL DVL ELI LIB */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.nombre-atributo2 { /* LIB */
+    font-family:'Garamond',serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.nombre-atributo3 { /* CGC CGL CGP CPW ECL ELI LOG */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: left;
+    padding-top: 7px;
+    padding-left: 60px;
+}
+
+.nombre-atributo4 { /* CGA CGP EAU */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: left;
+}
+
+.nombre-atributo5 { /* ELI */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: left;
+    padding-left: 60px;
+    align-self: flex-start;
+}
+
+.nombre-atributo6 { /* LPC */
+    font-family:'Garamond',serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 6px;
+}
+
+.pl20 { /* LLI */
+    padding-left: 20px;
+}
+
+.pl26 { /* AUT */
+    padding-left: 26px;
+}
+
+.pl39 { /* LLI */
+    padding-left: 39px;
+}
+
+.pt5 { /* DVL */
+    padding-top: 5px;
+}
+
+.pt10 { /* CGC CGP */
+    padding-top: 10px;
+}
+
+.pt15 { /* Todas donde hay sesión iniciada. */
+    padding-top: 15px;
+}
+
+.sin-vineta { /* LPC LPL */
+    list-style-type: none;
+    list-style-position: inside;
+}
+
+.tabla1 { /* LLI */
+    margin-left: 100px;
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.tar { /* BCD BCE BCN BCT LCL PED */
+    text-align: right;
+}
+
+.texto-adm-usu { /* Todas donde hay sesión iniciada. */
+    line-height: 5px;
+    font-weight: 600;
+    color: coral;
+}
+
+.texto-biografia { /* AUT */
+    font-size: 0.85em;
+    color: darkslateblue;
+    text-align: justify;
+}
+
+.texto-datos-cliente { /* BCD BCE BCT CLI */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(135, 52, 84);
+}
+
+.texto-disp { /* LLI PED */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(135, 52, 84);
+    display: table-cell;
+}
+
+.texto-intermedio { /* LPC LPL */
+    font-family:'Garamond',serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: darkslateblue;
+}
+
+.texto-largo-2c { /* LIB */
+    grid-column-start: 2;
+    grid-column-end: 4;
+    font-size: 0.85em;
+    color: rgb(85, 49, 82);
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.texto-peq { /* AUT LPC LPL */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(135, 52, 84);
+}
+
+.texto-peq2 { /* LPC LPL */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: darkslateblue;
+}
+
+.texto-rojo { /* BCD BCE BCN BCT LCL */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: red;
+}
+
+.texto-verde { /* BCD BCE BCN BCT LCL */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: green;
+}
+
+.tit-25 { /* AUT BCD BCE BCI BCN BCT BLA BLE BLI BLT CGA CGC CGL CGP CLI CPW DVL ECL ELI ERR LCL LIB LLI LPC LPL */
+    font-family:'Garamond',serif;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: center;
+}
+
+.tit-30 { /* PAU PED */
+    font-family:'Garamond',serif;
+    font-size: 3em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: center;
+}
+
+.tit-40 { /* ADM AOU ERR IND LOG PCL PLI PPR UBJ USU */
+    font-family:'Garamond',serif;
+    font-size: 4em;
+    font-weight: bold;
+    color: darkslateblue;
+    text-align: center;
+}
+
+.tit-autor-libros { /* AUT */
+    grid-column-start: 1;
+    grid-column-end: 3;
+    font-family:'Garamond',serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: darkslateblue;
+    padding-left: 25px;
+}
+
+.tit-autor-libros2 { /* AUT */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: darkslateblue;
+    padding-left: 25px;
+}
+
+.tit-datos-cliente { /* CLI */
+    font-family:'Garamond',serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: darkslateblue;
+}
+
+.tit-tabla { /* BCD BCE BCN BCT LCL LLI */
+    font-family:'Garamond',serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: underline;
+    color: darkslateblue;
+}
+
+.w100 { /* CLI */
+    width: 100px;
+}
+
+.w230 { /* IND */
+    width: 230px;
+}
+
+.w1195 { /* CLI */
+    width: 1195px;
+}
+
+.w1330 { /* LPC LPL */
+    width: 1330px;
+}
+
+.warning { /* CLI */
+    font-family:'Garamond',serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: red;
+}
+

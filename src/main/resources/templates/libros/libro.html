@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Librería - Libro</title>
+
+  <!-- Hoja de estilos propia CSS: -->
+  <link rel="stylesheet" href="/CSS/Estilos.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <!--
+
+    Variables del modelo obligatorias:
+    libro (Libro)
+    ejem_tot (Integer) = libro.ejemDisp + libro.ejemPrest
+    prestado (boolean)
+
+    Variables del modelo optativas:
+    exito_carga (boolean)
+    exito_edicion (boolean)
+    
+    Permisos:
+    ROLE_USUARIO  
+
+    Variables de la sesión:
+    session.usuario_session (HttpSession.Cliente)
+    session.permiso_session (HttpSession.PermisoSession) = SESION_ADMINISTRADOR o SESION_USUARIO
+
+  -->
+
+</head>
+
+<body>
+
+  <div class="contenedor-barra-nav">
+    <a class="enlace-barra-nav" href="/libros">Libros</a>
+    <a class="enlace-barra-nav" href="/autores">Autores</a>
+    <a class="enlace-barra-nav" href="/editoriales">Editoriales</a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/clientes">
+      Clientes
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/clientes/datos_cliente(idLink=${session.usuario_session.id})}">
+      Mi cuenta
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/prestamos">
+      Préstamos
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/prestamos/listado_x_cliente(idClienteLink=${session.usuario_session.id})}">
+      Mis préstamos
+    </a>
+    <a class="enlace-barra-nav" href="/logout">Cerrar sesión</a>
+    <div class="texto-adm-usu pt15">
+      <p th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Administrador' : 'Usuario'}"></p>
+      <p th:text="${session.usuario_session.nombre}"></p>
+    </div>
+  </div>
+
+  <div class="espaciado"></div>
+  <h1 class="tit-25" th:text="${libro.titulo}"></h1>
+
+  <div class="espaciado"></div>
+  <p class="info" th:if="${exito_carga}">El nuevo libro fue cargado exitosamente:</p>
+  <p class="info" th:if="${exito_edicion}">Los datos fueron modificados exitosamente:</p>
+
+  <!-- Datos del libro: 9 filas, 3 columnas. -->
+  <div class="contenedor-datos-libro">
+
+    <!-- Columna 1: imagen. -->
+    <div class="contenedor-9f">
+      <img class="imagen-libro" th:if="${libro.foto == null}" src="/Imágenes/Libros2.jpg">
+      <img class="imagen-libro" th:if="${libro.foto != null}" th:src="${'/foto/foto_libro/' + libro.isbn}">
+    </div>
+
+    <!-- Fila 1, columnas 2 y 3: -->
+    <div class="nombre-atributo">
+      <p>Título:</p>
+    </div>
+    <div class="atributo">
+      <p th:text="${libro.titulo}"></p>
+    </div>
+
+    <!-- Fila 2, columnas 2 y 3: -->
+    <div class="nombre-atributo">
+      <p>Autor:</p>
+    </div>
+    <div class="atributo">
+      <a th:href="@{/autores/datos_autor(idLink=${libro.autor.id})}" th:text="${libro.autor.nombre}"></a>
+    </div>
+
+    <!-- Fila 3, columnas 2 y 3: -->
+    <div class="nombre-atributo">
+      <p>Editorial:</p>
+    </div>
+    <div class="atributo">
+      <p th:text="${libro.editorial.nombre}"></p>
+    </div>
+
+    <!-- Fila 4, columnas 2 y 3: -->
+    <div class="nombre-atributo">
+      <p>Año de publicación:</p>
+    </div>
+    <div class="atributo">
+      <p th:text="${libro.anio}"></p>
+    </div>
+
+    <!-- Fila 5, columnas 2 y 3: -->
+    <div class="nombre-atributo">
+      <p>ISBN:</p>
+    </div>
+    <div class="atributo">
+      <p th:text="${libro.isbn}"></p>
+    </div>
+
+    <!-- Fila 6, columnas 2 y 3 (unificadas): -->
+    <div class="texto-largo-2c">
+      <p th:text="${libro.resumen}"></p>
+    </div>
+
+    <!-- Fila 7, columnas 2 y 3: -->
+    <div class="nombre-atributo2">
+      <p>Ejemplares disponibles:</p>
+    </div>
+    <div class="atributo2">
+      <p th:text="${libro.ejemDisp}"></p>
+    </div>
+
+    <!-- Fila 8, columnas 2 y 3: -->
+    <div class="nombre-atributo2">
+      <p>Ejemplares prestados:</p>
+    </div>
+    <div class="atributo2">
+      <p th:text="${libro.ejemPrest}"></p>
+    </div>
+
+    <!-- Fila 9, columnas 2 y 3: -->
+    <div class="nombre-atributo2">
+      <p>Ejemplares totales:</p>
+    </div>
+    <div class="atributo2">
+      <p th:text="${ejem_tot}"></p>
+    </div>
+
+  </div>
+
+  <div class="espaciado"></div>
+  <div class="espaciado"></div>
+
+  <!-- Menú de opciones (administrador): -->
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}">
+
+    <a class="boton" th:classappend="${libro.ejemDisp == 0 ? 'desactivar' : ''}"
+      th:href="@{/prestamos/cargar_l1(isbnLink=${libro.isbn})}">
+      Prestar
+    </a>
+
+    <a class="boton" th:classappend="${libro.ejemPrest == 0 ? 'desactivar' : ''}"
+      th:href="@{/prestamos/listado_x_libro(isbnLink=${libro.isbn})}">
+      Devolver
+    </a>
+
+    <a class="boton" th:href="@{/prestamos/listado_x_libro(isbnLink=${libro.isbn})}">Ver préstamos</a>
+
+    <a class="boton" th:href="@{/libros/editar1(isbnLink=${libro.isbn})}">Editar datos</a>
+
+    <!-- Botón de eliminar (si el libro se puede eliminar): -->
+    <button class="boton" th:if="${prestado == false}" onclick="window.eliminar.showModal();">
+      Eliminar libro
+    </button>
+    <dialog class="dialogo" id="eliminar">
+      <p>Se va a eliminar el libro <span th:text=${libro.titulo}></span>.</p>
+      <p>¿Estás seguro?</p>
+      <div class="contenedor-1f2c-espaciado">
+        <form action="/libros/eliminar" method="post">
+          <input type="hidden" name="isbnForm" th:value="${libro.isbn}">
+          <button class="boton2" type="submit">Aceptar</a>
+        </form>
+        <button class="boton2" onclick="window.eliminar.close();">Cancelar</button>
+      </div>
+    </dialog>
+
+    <!-- Botón de eliminar (si el libro NO se puede eliminar): -->
+    <button class="boton" th:if="${prestado}" onclick="window.no_eliminar.showModal();">
+      Eliminar libro
+    </button>
+    <dialog class="dialogo" id="no_eliminar">
+      <p>El libro no se puede eliminar ya que está asociado a uno o más préstamos.</p>
+      <button class="boton2 ml220" onclick="window.no_eliminar.close();">Aceptar</button>
+    </dialog>
+
+    <a class="boton" href="/libros">Volver al menú de libros</a>
+
+  </div>
+
+  <!-- Menú de opciones (usuario): -->
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}">
+
+    <a class="boton" th:classappend="${libro.ejemDisp == 0 ? 'desactivar' : ''}"
+      th:href="@{/prestamos/cargar_l1(isbnLink=${libro.isbn})}">
+      Tomar prestado
+    </a>
+
+    <a class="boton" href="/libros">Volver al menú de libros</a>
+
+  </div>
+
+  <div class="espaciado2"></div>
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+
+</html>

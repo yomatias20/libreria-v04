@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Librería - Autor</title>
+
+  <!-- Hoja de estilos propia CSS: -->
+  <link rel="stylesheet" href="/CSS/Estilos.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <!--
+
+    Variables del modelo obligatorias:
+    autor (Autor)
+    libros_disp (List<Libro>)
+    libros_no_disp (List<Libro>)  
+
+    Variables del modelo optativas:
+    exito_carga (boolean)
+    exito_edicion (boolean)
+      
+    Permisos:
+    ROLE_USUARIO  
+
+    Variables de la sesión:
+    session.usuario_session (HttpSession.Cliente)
+    session.permiso_session (HttpSession.PermisoSession) = SESION_ADMINISTRADOR o SESION_USUARIO
+
+  -->
+
+</head>
+
+<body>
+
+  <div class="contenedor-barra-nav">
+    <a class="enlace-barra-nav" href="/libros">Libros</a>
+    <a class="enlace-barra-nav" href="/autores">Autores</a>
+    <a class="enlace-barra-nav" href="/editoriales">Editoriales</a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/clientes">
+      Clientes
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/clientes/datos_cliente(idLink=${session.usuario_session.id})}">
+      Mi cuenta
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/prestamos">
+      Préstamos
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/prestamos/listado_x_cliente(idClienteLink=${session.usuario_session.id})}">
+      Mis préstamos
+    </a>
+    <a class="enlace-barra-nav" href="/logout">Cerrar sesión</a>
+    <div class="texto-adm-usu pt15">
+      <p th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Administrador' : 'Usuario'}"></p>
+      <p th:text="${session.usuario_session.nombre}"></p>
+    </div>
+  </div>
+
+  <br>
+  <h1 class="tit-25" th:text="${autor.nombre}"></h1>
+  <br>
+  <p class="info2" th:if="${exito_edicion}">Los datos fueron modificados exitosamente:</p>
+  <p class="info2" th:if="${exito_carga}">El autor fue cargado exitosamente:</p>
+
+  <div class="contenedor-autor-principal"> <!-- 3 columnas. -->
+
+    <div></div> <!-- Columna 1 (margen). -->
+
+    <div> <!-- Columna 2 (foto y biografía). -->
+      <div>
+        <img class="imagen-autor" th:if="${autor.foto == null}" src="Imágenes/Escritor.jpg">
+        <img class="imagen-autor" th:if="${autor.foto != null}" th:src="${'/foto/foto_autor/' + autor.id}">
+      </div>
+      <p class="texto-biografia" th:text="${autor.biografia}"></p>
+    </div>
+
+    <!-- Columna 3 (libros del autor). A su vez tiene 3 filas y 2 columnas: -->
+    <div class="contenedor-autor-libros"> 
+
+      <!-- Fila 1 completa: -->
+      <p class="tit-autor-libros">Títulos de 
+        <span th:text="${autor.nombre}"></span> en la librería:
+      </p>
+
+      <!-- Fila2, columna 1: -->
+      <p class="tit-autor-libros2">Disponibles:</p> 
+
+      <!-- Fila2, columna 2: -->
+      <p class="tit-autor-libros2">No disponibles:</p> 
+
+      <!-- Fila 3, columna 1: -->
+      <div> 
+        <p class="texto-peq pl26" th:if="${libros_disp.size == 0}">No hay</p>
+        <ul>
+          <li th:each="libro: ${libros_disp}">
+            <a class="enlace-lista2" th:href="@{/libros/datos_libro(isbnLink=${libro.isbn})}" th:text="${libro.titulo}"></a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Fila 3, columna 2: -->
+      <div> 
+        <p class="texto-peq pl26" th:if="${libros_no_disp.size == 0}">No hay</p>
+        <ul>
+          <li th:each="libro: ${libros_no_disp}">
+            <a class="enlace-lista2" th:href="@{/libros/datos_libro(isbnLink=${libro.isbn})}" th:text="${libro.titulo}"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones de editar, eliminar y volver (solo administrador): -->
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}">
+    <div class="contenedor-boton-centrado-1">
+      <a class="boton" th:href="@{/autores/editar1(idLink=${autor.id})}">Editar datos</a>
+    </div>
+    <div class="contenedor-boton-centrado-1">
+      <button class="boton" th:if="${libros_disp.size == 0 and libros_no_disp.size == 0}" onclick="window.eliminar.showModal();">
+        Eliminar autor
+      </button>
+      <dialog class="dialogo" id="eliminar">
+        <p>Se va a eliminar el autor <span th:text=${autor.nombre}></span>.</p>
+        <p>¿Estás seguro?</p>
+        <div class="contenedor-1f2c-espaciado">
+          <form action="/autores/eliminar" method="post">
+            <input type="hidden" name="idForm" th:value="${autor.id}">
+            <button class="boton2" type="submit">Aceptar</a>
+          </form>
+          <button class="boton2" onclick="window.eliminar.close();">Cancelar</button>
+        </div>
+      </dialog>
+      <button class="boton" th:if="${libros_disp.size > 0 or libros_no_disp.size > 0}"
+        onclick="window.no_eliminar.showModal();">
+        Eliminar autor</button>
+      <dialog class="dialogo" id="no_eliminar">
+        <p>El autor no se puede eliminar ya que hay libros suyos en la librería.</p>
+        <button class="boton2 ml180" onclick="window.no_eliminar.close();">Aceptar</button>
+      </dialog>
+    </div>
+    <div class="contenedor-boton-centrado-1">
+      <a class="boton-letra-peq" href="/autores">Volver a la lista de autores</a>
+    </div>
+  </div>
+
+  <!-- Botón de volver (solo usuario): -->
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}">
+    <a class="boton-letra-peq" href="/autores">Volver a la lista de autores</a>
+  </div>
+
+  <div class="espaciado2"></div>
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+
+</html>

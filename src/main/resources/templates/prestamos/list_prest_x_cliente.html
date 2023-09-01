@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Librería - Préstamos por cliente</title>
+
+  <!-- Hoja de estilos propia CSS -->
+  <link rel="stylesheet" href="/CSS/Estilos.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <!--
+
+    Variables del modelo obligatorias:
+    cliente (Cliente)
+    prest_activos (List<Prestamo>)
+    prest_cancelados (List<Prestamo>)
+
+    Variables del modelo optativas:
+    exito_carga (boolean)
+    exito_devol (boolean)
+    error (String)
+    
+    Permisos:
+    ROLE_USUARIO  
+
+    Variables de la sesión:
+    session.usuario_session (HttpSession.Cliente)
+    session.permiso_session (HttpSession.PermisoSession) = SESION_ADMINISTRADOR o SESION_USUARIO
+    
+  -->
+
+</head>
+
+<body>
+
+  <div class="contenedor-barra-nav">
+    <a class="enlace-barra-nav" href="/libros">Libros</a>
+    <a class="enlace-barra-nav" href="/autores">Autores</a>
+    <a class="enlace-barra-nav" href="/editoriales">Editoriales</a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/clientes">
+      Clientes
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/clientes/datos_cliente(idLink=${session.usuario_session.id})}">
+      Mi cuenta
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/prestamos">
+      Préstamos
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/prestamos/listado_x_cliente(idClienteLink=${session.usuario_session.id})}">
+      Mis préstamos
+    </a>
+    <a class="enlace-barra-nav" href="/logout">Cerrar sesión</a>
+    <div class="texto-adm-usu pt15">
+      <p th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Administrador' : 'Usuario'}"></p>
+      <p th:text="${session.usuario_session.nombre}"></p>
+    </div>
+  </div>
+
+  <br>
+  <h1 class="tit-25" 
+      th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Préstamos por cliente' : 'Mis préstamos'}">
+  </h1>
+  <br>
+
+  <p class="info5" th:if="${exito_carga}">El nuevo préstamo fue cargado exitosamente:</p>
+  <p class="info5" th:if="${exito_devol}">La devolución se ha registrado exitosamente:</p>
+  <p class="error10" th:if="${error}" th:text="${error}"></p>
+
+  <!-- Datos del cliente: -->
+  <div class="contenedor-datos-cliente2 w1330 texto-intermedio ml100 base-doble">
+    <p>Datos del cliente:</p>
+    <a class="enlace-cliente-libro ml60" th:text="${cliente.id} + '.'"
+      th:href="@{/clientes/datos_cliente(idLink= ${cliente.id})}"></a>
+    <a class="enlace-cliente-libro" th:text="${cliente.apellidos} + ', ' + ${cliente.nombre}"
+      th:href="@{/clientes/datos_cliente(idLink= ${cliente.id})}"></a>
+    <p class="atributo-rojo ml60" th:if="${cliente.alta == false}">(Cliente dado de baja)</p>  
+  </div>
+  <div class="espaciado"></div>
+
+  <!-- Datos de los préstamos: -->
+  <!-- Préstamos activos (no devueltos): -->
+  <p class="texto-intermedio ml100">Préstamos activos: </p>
+  <div class="w1330 ml100 texto-peq2 base-doble" th:if="${prest_activos.size == 0}">
+    <p>No hay</p>
+  </div>
+  <div class="w1330 ml100 base-doble" th:if="${prest_activos.size > 0}">
+    <!-- Títulos (4 columnas, la última vacía):-->
+    <div class="contenedor-1f4c-5 texto-peq2 centrado">
+      <p>Libro</p>
+      <p>Autor</p>
+      <p>Fecha de préstamo</p>
+    </div>
+    <!-- Datos (4 columnas): -->
+    <ul class="sin-vineta">
+      <li th:each="prestamo: ${prest_activos}">
+        <div class="contenedor-1f4c-6 fila35 texto-peq">
+          <a class="enlace-cliente-libro" th:href="@{/libros/datos_libro(isbnLink=${prestamo.libro.isbn})}"
+            th:text="${prestamo.libro.titulo}"></a>
+          <a class="enlace-cliente-libro" th:href="@{/autores/datos_autor(idLink=${prestamo.libro.autor.id})}"
+            th:text="${prestamo.libro.autor.nombre}"></a>
+          <p class="centrado2" th:text="${#dates.format(prestamo.fechaPrest, 'dd-MMM-yyyy')}"></p>
+          <a class="boton4 ml-negat" th:href="@{/prestamos/devolver1(idPrestLink=${prestamo.id})}">Devolver</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="espaciado"></div>
+
+  <!-- Préstamos cancelados (devueltos): -->
+  <p class="texto-intermedio ml100">Préstamos cancelados: </p>
+  <div class="w1330 ml100 texto-peq2 base-doble" th:if="${prest_cancelados.size == 0}">
+    <p>No hay</p>
+  </div>
+  <div class="w1330 ml100 base-doble" th:if="${prest_cancelados.size > 0}">
+    <!-- Títulos (4 columnas): -->
+    <div class="contenedor-1f4c-5 texto-peq2 centrado">
+      <p>Libro</p>
+      <p>Autor</p>
+      <p>Fecha de préstamo</p>
+      <p>Fecha de devolución</p>
+    </div>
+    <!-- Datos (4 columnas): -->
+    <ul class="sin-vineta">
+      <li th:each="prestamo: ${prest_cancelados}">
+        <div class="contenedor-1f4c-6 fila35 texto-peq">
+          <a class="enlace-cliente-libro" th:href="@{/libros/datos_libro(isbnLink=${prestamo.libro.isbn})}"
+            th:text="${prestamo.libro.titulo}"></a>
+          <a class="enlace-cliente-libro" th:href="@{/autores/datos_autor(idLink=${prestamo.libro.autor.id})}"
+            th:text="${prestamo.libro.autor.nombre}"></a>
+          <p class="centrado2" th:text="${#dates.format(prestamo.fechaPrest, 'dd-MMM-yyyy')}"></p>
+          <p class="centrado2" th:text="${#dates.format(prestamo.fechaDevol, 'dd-MMM-yyyy')}"></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="espaciado2"></div>
+
+  <!-- Menú de opciones: -->
+  <!-- Opciones para administrador: -->
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}">
+    <a class="boton" th:href="@{/prestamos/cargar_c1(idClienteLink=${cliente.id})}">Nuevo préstamo</a>
+    <a class="boton" th:href="@{/clientes/datos_cliente(idLink= ${cliente.id})}">Volver al cliente</a>
+    <a class="boton-letra-peq" href="/clientes">Volver al menú de clientes</a>
+    <a class="boton-letra-mas-peq" href="/prestamos">Volver al menú de préstamos</a>
+  </div>
+  
+  <!-- Opciones para usuario: -->
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}">
+    <a class="boton" th:href="@{/prestamos/cargar_c1(idClienteLink=${cliente.id})}">Nuevo préstamo</a>
+    <a class="boton" th:href="@{/clientes/datos_cliente(idLink= ${cliente.id})}">Volver a mi cuenta</a>
+    <a class="boton" href="/logout">Cerrar sesión</a>
+  </div>
+
+  <div class="espaciado2"></div>
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargar un nuevo cliente</title>
+
+  <!-- Hoja de estilos propia CSS -->
+  <link rel="stylesheet" href="/CSS/Estilos.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <!--
+
+    Variables del modelo obligatorias:
+    permiso_modelo (PermisoSession) = SESION_ADMINISTRADOR (ingreso desde sesión de administrador) 
+        o SIN_SESION (ingreso sin sesión iniciada)
+
+    Variables del modelo optativas:
+    error (String)
+    nombre_f (String)
+    apellidos_f (String)
+    dni_f (String)
+    telefono_f (String)
+    email_f (String)
+    sexo_f (Sexo.toString() = String)
+                   
+    Permisos:
+    ROLE_ADMIN (ingreso desde sesión de administrador) o ninguno (ingreso sin sesión iniciada)
+
+    Variables de la sesión:
+    session.usuario_session (HttpSession.Cliente) (solo en caso que permiso_modelo (PermisoSession) = SESION_ADMINISTRADOR)
+
+  -->
+
+</head>
+
+<body>
+
+  <div class="contenedor-barra-nav" th:if="${permiso_modelo.toString() == 'SESION_ADMINISTRADOR'}">
+    <a class="enlace-barra-nav" href="/libros">Libros</a>
+    <a class="enlace-barra-nav" href="/autores">Autores</a>
+    <a class="enlace-barra-nav" href="/editoriales">Editoriales</a>
+    <a class="enlace-barra-nav" href="/clientes">Clientes</a>
+    <a class="enlace-barra-nav" href="/prestamos">Préstamos</a>
+    <a class="enlace-barra-nav" href="/logout">Cerrar sesión</a>
+    <div class="texto-adm-usu pt15">
+      <p>Administrador</p>
+      <p th:text="${session.usuario_session.nombre}"></p>
+    </div>
+  </div>
+  
+  <div class="contenedor-barra-nav" th:if="${permiso_modelo.toString() == 'SIN_SESION'}"></div>
+
+  <br>
+  <h1 class="tit-25" th:if="${permiso_modelo.toString() == 'SESION_ADMINISTRADOR'}">Dar de alta un nuevo cliente</h1>
+  <h1 class="tit-25" th:if="${permiso_modelo.toString() == 'SIN_SESION'}">Formulario de registro</h1>
+  <br>
+
+  <p class="error3" th:if="${error != null}" th:text="${error}"></p>
+
+  <form action="/clientes/cargar2" method="post">
+    <div class="contenedor-carga-cliente">
+      <!-- 9 filas, 2 columnas. Etiquetas en la 1º columna, entrada de datos en la 2º. -->
+      <label class="nombre-atributo3">Nombre:</label> <!-- Fila 1, columna 1. -->
+      <input class="entrada" type="text" name="nombreForm" maxlength="45" th:value="${nombre_f}"> <!-- Fila 1, columna 2. -->
+      <label class="nombre-atributo3">Apellidos:</label> <!-- Fila 2, columna 1. -->
+      <input class="entrada" type="text" name="apellidosForm" maxlength="45" th:value="${apellidos_f}"> <!-- Fila 2, columna 2. -->
+      <label class="nombre-atributo3">Sexo:</label> <!-- Fila 3, columna 1. -->
+      <select class="entrada4" name="sexoForm"> <!-- Fila 3, columna 2. -->
+        <option value="HOMBRE" th:selected="${sexo_f == 'HOMBRE'}">HOMBRE</option>
+        <option value="MUJER" th:selected="${sexo_f == 'MUJER'}">MUJER</option>
+        <option value="OTRO" th:selected="${sexo_f == 'OTRO'}">OTRO</option>
+      </select>
+      <label class="nombre-atributo3">DNI:</label> <!-- Fila 4, columna 1. -->
+      <input class="entrada4" type="text" name="dniForm" maxlength="15" th:value="${dni_f}"> <!-- Fila 4, columna 2. -->
+      <label class="nombre-atributo3">Teléfono:</label> <!-- Fila 5, columna 1. -->
+      <input class="entrada4" type="text" name="telefonoForm" maxlength="20" th:value="${telefono_f}"> <!-- Fila 5, columna 2. -->
+      <label class="nombre-atributo3">E-mail:</label> <!-- Fila 6, columna 1. -->
+      <input class="entrada" type="text" name="emailForm" maxlength="45" th:value="${email_f}"> <!-- Fila 6, columna 2. -->
+      <label class="nombre-atributo3">Clave (*):</label> <!-- Fila 7, columna 1. -->
+      <input class="entrada" type="password" name="clave1Form" maxlength="45"> <!-- Fila 7, columna 2. -->
+      <label class="nombre-atributo3">Repite la clave:</label> <!-- Fila 8, columna 1. -->
+      <input class="entrada" type="password" name="clave2Form" maxlength="45"> <!-- Fila 8, columna 2. -->
+      <p class="nombre-atributo3">Nº de socio:</p> <!-- Fila 9, columna 1. -->
+      <p class="info-azul pt10">El número de socio se generará automáticamente al cargar los datos.</p> <!-- Fila 9, columna 2. -->
+    </div>  
+    <p class="info-azul ml60">(*) La clave debe tener al menos 6 caracteres y no puede contener espacios.</p>
+    <div class="espaciado"></div>
+    <div class="contenedor-1f2c-botones">
+      <button class="boton" type="submit">Enviar datos</button>
+      <a class="boton" th:if="${permiso_modelo.toString() == 'SIN_SESION'}" href="/">Cancelar</a>
+      <a class="boton" th:if="${permiso_modelo.toString() == 'SESION_ADMINISTRADOR'}" href="/clientes">Cancelar</a>
+    </div>
+  </form>
+  
+  <div class="espaciado2"></div>
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

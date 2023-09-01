@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librería - Cargar un nuevo libro</title>
+
+  <!-- Hoja de estilos propia CSS -->
+  <link rel="stylesheet" href="/CSS/Estilos.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <!--
+
+    Variables del modelo obligatorias:
+    autores (List<Autor>)
+    editoriales (List<Editorial>)
+
+    Variables del modelo optativas:
+    error (String)
+    isbn_f (String)
+    titulo_f (String)
+    id_autor_f (Long)
+    id_editorial_f (Long)
+    anio_f (Integer)
+    ejem_disp_f (Integer)
+    resumen_f (String)
+         
+    Permisos:
+    ROLE_ADMIN  
+
+    Variables de la sesión:
+    session.usuario_session (HttpSession.Cliente)
+    session.permiso_session (HttpSession.PermisoSession) = SESION_ADMINISTRADOR 
+    
+  -->
+
+</head>
+
+<body>
+
+  <div class="contenedor-barra-nav">
+    <a class="enlace-barra-nav" href="/libros">Libros</a>
+    <a class="enlace-barra-nav" href="/autores">Autores</a>
+    <a class="enlace-barra-nav" href="/editoriales">Editoriales</a>
+    <a class="enlace-barra-nav" href="/clientes">Clientes</a>
+    <a class="enlace-barra-nav" href="/prestamos">Préstamos</a>
+    <a class="enlace-barra-nav" href="/logout">Cerrar sesión</a>
+    <div class="texto-adm-usu pt15">
+      <p>Administrador</p>
+      <p th:text="${session.usuario_session.nombre}"></p>
+    </div>
+  </div>
+
+  <br>
+  <h1 class="tit-25">Cargar un nuevo libro</h1>
+  <br>
+
+  <p class="error3" th:if="${error != null}" th:text="${error}"></p>
+
+  <form action="/libros/cargar2" method="post" enctype="multipart/form-data">
+    <div class="contenedor-carga-libro">
+      <!-- 8 filas, 3 columnas. Etiquetas en la 1º columna, entrada de datos en la 2º, y resumen en la 3º. -->
+      <label class="nombre-atributo3">Título:</label> <!-- Fila 1, columna 1. -->
+      <input class="entrada" type="text" name="tituloForm" maxlength="45" th:value="${titulo_f}"> <!-- Fila 1, columna 2. -->
+      <div class="contenedor-editar-resumen-libro"> <!-- Filas 1 a 8, columna 3. -->
+        <label class="nombre-atributo">Resumen:</label>
+        <br>
+        <textarea class="entrada-resumen" name="resumenForm" rows="18" cols="80" maxlength="1400"
+          th:if="${resumen_f == null}" placeholder="Escribe aquí el resumen..."></textarea>
+        <textarea class="entrada-resumen" name="resumenForm" rows="18" cols="80" maxlength="1400"
+          th:if="${resumen_f != null}" th:text="${resumen_f}"></textarea>
+      </div>
+      <label class="nombre-atributo3">Autor:</label> <!-- Fila 2, columna 1. -->
+      <select class="entrada" name="idAutorForm"> <!-- Fila 2, columna 2. -->
+        <option th:each="autor: ${autores}" th:text="${autor.nombre}" th:value="${autor.id}" 
+            th:selected="${autor.id == id_autor_f}"></option>
+      </select>
+      <label class="nombre-atributo3">Editorial:</label> <!-- Fila 3, columna 1. -->
+      <select class="entrada" name="idEditorialForm"> <!-- Fila 3, columna 2. -->
+        <option th:each="editorial: ${editoriales}" th:text="${editorial.nombre}" th:value="${editorial.id}" 
+            th:selected="${editorial.id == id_editorial_f}"></option>
+      </select>
+      <label class="nombre-atributo3">Foto de portada: </label> <!-- Fila 4, columna 1. -->
+      <input class ="entrada" type="file" name="archivo" accept=".jpg, .jpeg, .png"> <!-- Fila 4, columna 2. -->
+      <label class="nombre-atributo3">Año:</label> <!-- Fila 5, columna 1. -->
+      <input class="entrada" type="number" name="anioForm" th:value="${anio_f}"> <!-- Fila 5, columna 2. -->
+      <label class="nombre-atributo3">Ejemplares disponibles:</label> <!-- Fila 6, columna 1. -->
+      <input class="entrada" type="number" name="ejemDispForm" th:value="${ejem_disp_f}"> <!-- Fila 6, columna 2. -->
+      <p class="nombre-atributo3">Ejemplares prestados:</p> <!-- Fila 7, columna 1. -->
+      <p class="atributo3">0</p> <!-- Fila 7, columna 2. -->
+      <label class="nombre-atributo3 as-fs">ISBN:</label> <!-- Fila 8, columna 1. -->
+      <input class="entrada as-fs" type="text" maxlength="4" name="isbnStrForm" placeholder="Número del 0001 al 9999..."
+          th:value="${isbn_f}"> <!-- Fila 8, columna 2. -->
+    </div>  
+    
+    <div class="espaciado2"></div>
+
+    <div class="contenedor-1f2c-botones">
+      <button class="boton" type="submit">Enviar datos</button>
+      <a class="boton" href="/libros">Cancelar</a>
+    </div>
+  </form>
+
+  <div class="espaciado2"></div>
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

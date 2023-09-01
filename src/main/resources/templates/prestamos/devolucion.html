@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Librería - Devolver un libro</title>
+
+  <!-- Hoja de estilos propia CSS -->
+  <link rel="stylesheet" href="/CSS/Estilos.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <!--
+
+    Variables del modelo obligatorias:
+    prestamo (Prestamo)
+       
+    Variables del modelo optativas:
+    error (String)
+    
+    Permisos:
+    ROLE_USUARIO  
+
+    Variables de la sesión:
+    session.usuario_session (HttpSession.Cliente)
+    session.permiso_session (HttpSession.PermisoSession) = SESION_ADMINISTRADOR o SESION_USUARIO
+
+  -->
+
+</head>
+
+<body>
+
+  <div class="contenedor-barra-nav">
+    <a class="enlace-barra-nav" href="/libros">Libros</a>
+    <a class="enlace-barra-nav" href="/autores">Autores</a>
+    <a class="enlace-barra-nav" href="/editoriales">Editoriales</a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/clientes">
+      Clientes
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/clientes/datos_cliente(idLink=${session.usuario_session.id})}">
+      Mi cuenta
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/prestamos">
+      Préstamos
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/prestamos/listado_x_cliente(idClienteLink=${session.usuario_session.id})}">
+      Mis préstamos
+    </a>
+    <a class="enlace-barra-nav" href="/logout">Cerrar sesión</a>
+    <div class="texto-adm-usu pt15">
+      <p th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Administrador' : 'Usuario'}"></p>
+      <p th:text="${session.usuario_session.nombre}"></p>
+    </div>
+  </div>
+
+  <br>
+  <h1 class="tit-25">Devolver un libro</h1>
+  <br>
+
+  <p class="error11" th:if="${error != null}" th:text="${error}"></p>
+
+  <div class="contenedor-datos-devolucion">
+    <p class="nombre-atributo">Cliente:</p>
+    <p class="atributo7" th:text="${prestamo.cliente.id} + '. '  + ${prestamo.cliente.apellidos} + ', ' + ${prestamo.cliente.nombre}">
+    </p>
+    <p class="nombre-atributo">Libro:</p>
+    <p class="atributo7" th:text="${prestamo.libro.titulo}"></p>
+    <p class="nombre-atributo">Autor:</p>
+    <p class="atributo7" th:text="${prestamo.libro.autor.nombre}"></p>
+    <p class="nombre-atributo">Fecha del préstamo:</p>
+    <p class="atributo7" th:text="${#dates.format(prestamo.fechaPrest, 'dd-MMM-yyyy')}"></p>
+  </div>
+  <form action="/prestamos/devolver2" method="post">
+    <input type="hidden" name="idPrestamoForm" th:value="${prestamo.id}">
+    <div class="contenedor-form-devolucion">
+      <p class="nombre-atributo pt5">Fecha de devolución:</p>
+      <input th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" 
+          class="entrada9" type="date" name="fechaDevolStrForm">
+      <p class="atributo7 pt5" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+          th:text="${#dates.format(#dates.createNow(), 'dd-MMM-yyyy')}">
+      </p>
+    </div>
+    <div class="espaciado2"></div>
+    <div class="contenedor-1f2c-botones">
+      <button class="boton" type="submit" 
+          th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Enviar datos' : 'Confirmar'}">
+      </button>
+      <a class="boton" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/prestamos">Cancelar</a>
+      <a class="boton" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+          th:href="@{/prestamos/listado_x_cliente(idClienteLink=${session.usuario_session.id})}">
+        Cancelar
+      </a>
+    </div>
+  </form>
+
+  <div class="espaciado2"></div>
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

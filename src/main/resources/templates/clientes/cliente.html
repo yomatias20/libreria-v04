@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Librería - Datos del cliente</title>
+
+  <!-- Hoja de estilos propia CSS: -->
+  <link rel="stylesheet" href="/CSS/Estilos.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <!--
+
+    Variables del modelo obligatorias:
+    cliente (Cliente)
+    
+    Variables del modelo optativas:
+    error (String)
+    exito_carga (boolean)
+    exito_reactiv (boolean)
+    exito_edicion (boolean)
+    exito_password (boolean)
+    exito_permisos_si (boolean)
+    exito_permisos_no (boolean)
+    con_prestamos (boolean)
+
+    Permisos:
+    ROLE_USUARIO  
+
+    Variables de la sesión:
+    session.usuario_session (HttpSession.Cliente)
+    session.permiso_session (HttpSession.PermisoSession) = SESION_ADMINISTRADOR o SESION_USUARIO
+  -->
+
+</head>
+
+<body>
+
+  <div class="contenedor-barra-nav">
+    <a class="enlace-barra-nav" href="/libros">Libros</a>
+    <a class="enlace-barra-nav" href="/autores">Autores</a>
+    <a class="enlace-barra-nav" href="/editoriales">Editoriales</a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/clientes">
+      Clientes
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/clientes/datos_cliente(idLink=${session.usuario_session.id})}">
+      Mi cuenta
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}" href="/prestamos">
+      Préstamos
+    </a>
+    <a class="enlace-barra-nav" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}" 
+        th:href="@{/prestamos/listado_x_cliente(idClienteLink=${session.usuario_session.id})}">
+      Mis préstamos
+    </a>
+    <a class="enlace-barra-nav" href="/logout">Cerrar sesión</a>
+    <div class="texto-adm-usu pt15">
+      <p th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Administrador' : 'Usuario'}"></p>
+      <p th:text="${session.usuario_session.nombre}"></p>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <h1 class="tit-25" th:text="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' ? 'Datos del cliente' : 'Mi cuenta'}"></h1>
+  <br>
+  <br>
+  <p class="info5" th:if="${exito_carga}">El nuevo cliente fue cargado exitosamente:</p>
+  <p class="info5" th:if="${exito_reactiv}">El cliente fue reactivado exitosamente:</p>
+  <p class="info5" th:if="${exito_permisos_si}">Otorgados permisos de administrador al cliente:</p>
+  <p class="info5" th:if="${exito_permisos_no}">Retirados permisos de administrador al cliente:</p>
+  <p class="info5" th:if="${exito_edicion}" 
+      th:text=
+      "${session.permiso_session.toString() == 'SESION_ADMINISTRADOR' 
+          ? 'Los datos del cliente se modificaron exitosamente:' : 'Tus datos se modificaron exitosamente:'}">
+  </p>
+  <p class="info5" th:if="${exito_password}">Tu contraseña se ha modificado exitosamente.</p>
+  <p class="error10" th:if="${error != null}" th:text="${error}"></p>
+  
+  <!-- Datos del cliente: -->
+  <p class="warning ml100" th:if="${cliente.alta == false}">¡ATENCIÓN!!! CLIENTE DADO DE BAJA.</p>
+  <div class="espaciado" th:if="${cliente.alta == false}"></div>
+  <div class="contenedor-datos-cliente">
+    <p class="tit-datos-cliente">Nº de socio:</p>
+    <p class="texto-datos-cliente" th:text="${cliente.id}"></p>
+    <p class="tit-datos-cliente">DNI:</p>
+    <p class="texto-datos-cliente" th:text="${cliente.dni}"></p>
+    <p class="tit-datos-cliente">Nombre y apellidos:</p>
+    <p class="texto-datos-cliente" th:text="${cliente.apellidos} + ', ' + ${cliente.nombre}"></p>
+    <p class="tit-datos-cliente">Sexo:</p>
+    <p class="texto-datos-cliente" th:text="${cliente.sexo}"></p>
+    <p class="tit-datos-cliente">Teléfono:</p>
+    <p class="texto-datos-cliente" th:text="${cliente.telefono}"></p>
+    <p class="tit-datos-cliente">E-mail:</p>
+    <p class="texto-datos-cliente" th:text="${cliente.email}"></p>
+    <p class="tit-datos-cliente">Categoría:</p>
+    <p class="texto-datos-cliente" th:text="${cliente.categoria}"></p>
+  </div>
+  <div class="espaciado2"></div>
+
+  <!-- Menú de opciones: -->
+  <!-- Opciones para administrador: -->
+
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}">
+    <a class="boton" th:classappend="${cliente.alta == false ? 'desactivar' : ''}" 
+        th:href="@{/prestamos/cargar_c1(idClienteLink=${cliente.id})}">
+      Nuevo préstamo
+    </a>
+    <a class="boton" th:classappend="${con_prestamos == false ? 'desactivar' : ''}" 
+        th:href="@{/prestamos/listado_x_cliente(idClienteLink=${cliente.id})}">
+      Devolución
+    </a>
+    <a class="boton" th:href="@{/prestamos/listado_x_cliente(idClienteLink=${cliente.id})}">Ver préstamos</a>
+    <a class="boton" th:href="@{/clientes/editar1(idLink=${cliente.id})}">Modificar datos</a>
+  </div>
+
+  <div class="espaciado" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}"></div>
+  <div class="espaciado" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}"></div>
+
+  <div class="contenedor-flex w1195 centrado4" th:if="${session.permiso_session.toString() == 'SESION_ADMINISTRADOR'}">
+
+    <!-- Permisos: de usuario a administrador: -->
+    <button class="boton-2lineas" th:classappend="${cliente.alta == false ? 'desactivar' : ''}" 
+        th:if="${cliente.categoria.toString() == 'USUARIO'}" onclick="window.otorgar_permisos.showModal();">
+      Otorgar permisos de administrador
+    </button>
+    <dialog class="dialogo" id="otorgar_permisos">
+      <p>
+        Se van a otorgar permisos de administrador al cliente 
+        <span th:text="${cliente.apellidos} + ', ' + ${cliente.nombre}"></span>.
+      </p>
+      <p th:text="${session.usuario_session.sexo == 'Mujer' ? '¿Estás segura?' : '¿Estás seguro?'}"></p>
+      <div class="contenedor-1f2c-espaciado">
+        
+        <form action="/clientes/otorgar_permisos" method="post">
+          <input type="hidden" name="idClienteForm" th:value="${cliente.id}">
+          <button class="boton2 w100" type="submit">Aceptar</a>
+        </form>
+      
+        <button class="boton2 w100" onclick="window.otorgar_permisos.close();">Cancelar</button>
+      </div>
+    </dialog>
+
+    <!-- Permisos: de administrador a usuario (factible): -->
+    <button class="boton-2lineas" 
+        th:if="${cliente.categoria.toString() == 'ADMINISTRADOR' and cliente.id != session.usuario_session.id}" 
+        onclick="window.retirar_permisos.showModal();">
+      Retirar permisos de administrador
+    </button>
+    <dialog class="dialogo" id="retirar_permisos">
+      <p>
+        Se van a retirar permisos de administrador al cliente 
+        <span th:text="${cliente.apellidos} + ', ' + ${cliente.nombre}"></span>.
+      </p>
+      <p th:text="${session.usuario_session.sexo == 'Mujer' ? '¿Estás segura?' : '¿Estás seguro?'}"></p>
+      <div class="contenedor-1f2c-espaciado">
+        
+        <form action="/clientes/retirar_permisos" method="post">
+          <input type="hidden" name="idClienteForm" th:value="${cliente.id}">
+          <button class="boton2 w100" type="submit">Aceptar</a>
+        </form>
+      
+        <button class="boton2 w100" onclick="window.retirar_permisos.close();">Cancelar</button>
+      </div>
+    </dialog>
+
+    <!-- Permisos: de administrador a usuario (no factible): -->
+    <button class="boton-2lineas" 
+        th:if="${cliente.categoria.toString() == 'ADMINISTRADOR' and cliente.id == session.usuario_session.id}" 
+        onclick="window.no_retirar_permisos.showModal();">
+      Retirar permisos de administrador
+    </button>
+    <dialog class="dialogo" id="no_retirar_permisos">
+      <p>No te puedes retirar permisos a ti mismo.</p>
+      <p>Lo debe hacer otro administrador.</p>
+      <button class="boton2 ml100" onclick="window.no_retirar_permisos.close();">Aceptar</button>
+    </dialog>
+
+    <!-- Baja factible (sin préstamos activos): -->
+    <button class="boton" th:if="${cliente.alta and cliente.categoria.toString == 'USUARIO' and con_prestamos == false}" 
+        onclick="window.eliminar.showModal();">
+      Dar de baja cliente
+    </button>
+    <dialog class="dialogo" id="eliminar">
+      <p>Se va a dar de baja el cliente <span th:text="${cliente.apellidos} + ', ' + ${cliente.nombre}"></span>.</p>
+      <p th:text="${session.usuario_session.sexo == 'Mujer' ? '¿Estás segura?' : '¿Estás seguro?'}"></p>
+      <div class="contenedor-1f2c-espaciado">
+        <form action="/clientes/baja1" method="post">
+          <input type="hidden" name="idClienteForm" th:value="${cliente.id}">
+          <button class="boton2 w100" type="submit">Aceptar</a>
+        </form>
+        <button class="boton2 w100" onclick="window.eliminar.close();">Cancelar</button>
+      </div>
+    </dialog>
+
+    <!-- Baja no factible (con préstamos activos): -->
+    <button class="boton" th:if="${cliente.alta and cliente.categoria.toString == 'USUARIO' and con_prestamos}" 
+        onclick="window.no_eliminar1.showModal();">
+      Dar de baja cliente
+    </button>
+    <dialog class="dialogo" id="no_eliminar1">
+      <p>El cliente no se puede dar de baja ya que tiene uno o más préstamos activos.</p>
+      <button class="boton2 ml220" onclick="window.no_eliminar1.close();">Aceptar</button>
+    </dialog>
+
+    <!-- Baja no factible (administrador): -->
+    <button class="boton" th:if="${cliente.alta and cliente.categoria.toString == 'ADMINISTRADOR'}" 
+        onclick="window.no_eliminar2.showModal();">
+      Dar de baja cliente
+    </button>
+    <dialog class="dialogo" id="no_eliminar2">
+      <p>El cliente no se puede dar de baja ya que es administrador.</p>
+      <button class="boton2 ml180" onclick="window.no_eliminar2.close();">Aceptar</button>
+    </dialog>
+
+    <!-- Cliente dado de baja (reactivar): -->
+    <button class="boton" th:if="${cliente.alta == false}" onclick="window.reactivar.showModal();">
+      Reactivar cliente
+    </button>
+    <dialog class="dialogo" id="reactivar">
+      <p>Se va a reactivar el cliente <span th:text="${cliente.apellidos} + ', ' + ${cliente.nombre}"></span>.</p>
+      <p th:text="${session.usuario_session.sexo == 'Mujer' ? '¿Estás segura?' : '¿Estás seguro?'}"></p>
+      <div class="contenedor-1f2c-espaciado">
+        <form action="/clientes/reactivar" method="post">
+          <input type="hidden" name="idClienteForm" th:value="${cliente.id}">
+          <button class="boton2 w100" type="submit">Aceptar</a>
+        </form>
+        <button class="boton2 w100" onclick="window.eliminar.close();">Cancelar</button>
+      </div>
+    </dialog>
+
+    <a class="boton-letra-peq" href="/clientes">Volver al menú de clientes</a>
+  </div>
+
+  <!-- Opciones para usuario: -->
+
+  <div class="contenedor-flex" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}">
+    <a class="boton" th:href="@{/prestamos/cargar_c1(idClienteLink=${cliente.id})}">Nuevo préstamo</a>
+    <a class="boton" th:classappend="${con_prestamos == false ? 'desactivar' : ''}" 
+        th:href="@{/prestamos/listado_x_cliente(idClienteLink=${cliente.id})}">
+      Devolución
+    </a>
+    <a class="boton" th:href="@{/prestamos/listado_x_cliente(idClienteLink=${cliente.id})}">Ver mis préstamos</a>
+    <a class="boton" th:href="@{/clientes/editar1(idLink=${cliente.id})}">Modificar mis datos</a>
+  </div>
+
+  <div class="espaciado" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}"></div>
+  <div class="espaciado" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}"></div>
+
+  <div class="contenedor-flex w1195 centrado4" th:if="${session.permiso_session.toString() == 'SESION_USUARIO'}">
+    <a class="boton" th:href="@{/clientes/cambiar_password1(idLink=${cliente.id})}">Cambiar contraseña</a>
+
+    <!-- Baja factible (categoría usuario, sin préstamos activos): -->
+    <button class="boton" th:if="${cliente.categoria.toString() == 'USUARIO' and con_prestamos == false}" 
+        onclick="window.eliminar.showModal();">
+      Darme de baja
+    </button>
+    <dialog class="dialogo" id="eliminar">
+      <p>Se va a dar de baja tu usuario. No podrás continuar operando con la librería. </p>
+      <p>Sin embargo, podrás volver a reactivarlo en cualquier momento.</p>
+      <p th:text="${session.usuario_session.sexo == 'Mujer' ? '¿Estás segura?' : '¿Estás seguro?'}"></p>
+      <br>
+      <div class="contenedor-1f2c-espaciado mb10">
+        <form action="/clientes/baja1" method="post">
+          <input type="hidden" name="idClienteForm" th:value="${cliente.id}">
+          <button class="boton2 w100" type="submit">Aceptar</a>
+        </form>
+        <button class="boton2 w100" onclick="window.eliminar.close();">Cancelar</button>
+      </div>
+    </dialog>
+
+    <!-- Baja no factible (categoría usuario, con préstamos activos): -->
+    <button class="boton" th:if="${cliente.categoria.toString() == 'USUARIO' and con_prestamos}" 
+        onclick="window.no_eliminar1.showModal();">
+      Darme de baja
+    </button>
+    <dialog class="dialogo" id="no_eliminar1">
+      <p>Tu usuario no se puede dar de baja ya que tienes uno o más préstamos activos.</p>
+      <p>Deberás devolver los préstamos antes.</p>
+      <button class="boton2 ml220" onclick="window.no_eliminar1.close();">Aceptar</button>
+    </dialog>
+
+    <!-- Baja no factible (categoría administrador): -->
+    <button class="boton" th:if="${cliente.categoria.toString() == 'ADMINISTRADOR'}" 
+        onclick="window.no_eliminar2.showModal();">
+      Darme de baja
+    </button>
+    <dialog class="dialogo" id="no_eliminar2">
+      <p>Tu usuario no se puede dar de baja ya que eres administrador.</p>
+      <button class="boton2 ml180" onclick="window.no_eliminar2.close();">Aceptar</button>
+    </dialog>
+
+    <a class="boton" href="/logout">Cerrar sesión</a>
+
+  </div>
+
+  <div class="espaciado2"></div>
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+
+</html>
