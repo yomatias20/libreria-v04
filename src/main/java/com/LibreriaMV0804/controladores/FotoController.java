@@ -1,11 +1,11 @@
 
-package com.LibreriaMV0802.controladores;
+package com.LibreriaMV0804.controladores;
 
-import com.LibreriaMV0802.entidades.Autor;
-import com.LibreriaMV0802.entidades.Libro;
-import com.LibreriaMV0802.errores.ErrorServicio;
-import com.LibreriaMV0802.servicios.AutorService;
-import com.LibreriaMV0802.servicios.LibroService;
+import com.LibreriaMV0804.entidades.Autor;
+import com.LibreriaMV0804.entidades.Libro;
+import com.LibreriaMV0804.errores.ErrorServicio;
+import com.LibreriaMV0804.servicios.AutorService;
+import com.LibreriaMV0804.servicios.LibroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -77,7 +77,7 @@
 
     <!-- Columna 1: imagen. -->
     <div class="contenedor-9f">
-      <img class="imagen-libro" th:if="${libro.foto == null}" src="/Imágenes/Libros2.jpg">
+      <img class="imagen-libro" th:if="${libro.foto == null}" src="/Imágenes/Generales/Libros2.jpg">
       <img class="imagen-libro" th:if="${libro.foto != null}" th:src="${'/foto/foto_libro/' + libro.isbn}">
     </div>
 

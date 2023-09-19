@@ -1,15 +1,15 @@
 
-package com.LibreriaMV0802.controladores;
+package com.LibreriaMV0804.controladores;
 
-import com.LibreriaMV0802.entidades.Cliente;
-import com.LibreriaMV0802.entidades.Prestamo;
-import com.LibreriaMV0802.enumeraciones.PermisoSession;
-import com.LibreriaMV0802.errores.ErrorGeneral;
-import com.LibreriaMV0802.errores.ErrorSeguridad;
-import com.LibreriaMV0802.errores.ErrorServicio;
-import com.LibreriaMV0802.servicios.ClienteService;
-import com.LibreriaMV0802.servicios.LibroService;
-import com.LibreriaMV0802.servicios.PrestamoService;
+import com.LibreriaMV0804.entidades.Cliente;
+import com.LibreriaMV0804.entidades.Prestamo;
+import com.LibreriaMV0804.enumeraciones.PermisoSession;
+import com.LibreriaMV0804.errores.ErrorGeneral;
+import com.LibreriaMV0804.errores.ErrorSeguridad;
+import com.LibreriaMV0804.errores.ErrorServicio;
+import com.LibreriaMV0804.servicios.ClienteService;
+import com.LibreriaMV0804.servicios.LibroService;
+import com.LibreriaMV0804.servicios.PrestamoService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;

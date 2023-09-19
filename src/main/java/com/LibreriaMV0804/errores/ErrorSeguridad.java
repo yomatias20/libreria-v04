@@ -1,5 +1,5 @@
 
-package com.LibreriaMV0802.errores;
+package com.LibreriaMV0804.errores;
 
 public class ErrorSeguridad extends Exception {
 

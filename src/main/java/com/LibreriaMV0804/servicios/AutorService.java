@@ -1,10 +1,10 @@
 
-package com.LibreriaMV0802.servicios;
+package com.LibreriaMV0804.servicios;
 
-import com.LibreriaMV0802.entidades.Autor;
-import com.LibreriaMV0802.entidades.Foto;
-import com.LibreriaMV0802.errores.ErrorServicio;
-import com.LibreriaMV0802.repositorios.AutorRepositorio;
+import com.LibreriaMV0804.entidades.Autor;
+import com.LibreriaMV0804.entidades.Foto;
+import com.LibreriaMV0804.errores.ErrorServicio;
+import com.LibreriaMV0804.repositorios.AutorRepositorio;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;

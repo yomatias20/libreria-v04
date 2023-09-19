@@ -1,7 +1,7 @@
 
-package com.LibreriaMV0802.repositorios;
+package com.LibreriaMV0804.repositorios;
 
-import com.LibreriaMV0802.entidades.Libro;
+import com.LibreriaMV0804.entidades.Libro;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com</groupId>
-	<artifactId>libreriaMV08-02</artifactId>
+	<artifactId>libreriaMV08-04</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>LibreriaMV08-02</name>
+	<name>LibreriaMV08-04</name>
 	<description>Aplicación web Librería</description>
 	<properties>
 		<java.version>1.8</java.version>

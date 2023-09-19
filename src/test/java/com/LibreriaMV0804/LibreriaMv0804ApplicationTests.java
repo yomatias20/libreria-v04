@@ -1,10 +1,10 @@
-package com.LibreriaMV0801;
+package com.LibreriaMV0804;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LibreriaMv0801ApplicationTests {
+class LibreriaMv0804ApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,8 +1,8 @@
 
-package com.LibreriaMV0802.controladores;
+package com.LibreriaMV0804.controladores;
 
-import com.LibreriaMV0802.entidades.Cliente;
-import com.LibreriaMV0802.enumeraciones.PermisoSession;
+import com.LibreriaMV0804.entidades.Cliente;
+import com.LibreriaMV0804.enumeraciones.PermisoSession;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

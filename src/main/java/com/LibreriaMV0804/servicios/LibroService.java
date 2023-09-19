@@ -1,11 +1,11 @@
-package com.LibreriaMV0802.servicios;
+package com.LibreriaMV0804.servicios;
 
-import com.LibreriaMV0802.entidades.Foto;
-import com.LibreriaMV0802.entidades.Libro;
-import com.LibreriaMV0802.errores.ErrorSeguridad;
-import com.LibreriaMV0802.errores.ErrorServicio;
-import com.LibreriaMV0802.repositorios.LibroRepositorio;
-import com.LibreriaMV0802.repositorios.PrestamoRepositorio;
+import com.LibreriaMV0804.entidades.Foto;
+import com.LibreriaMV0804.entidades.Libro;
+import com.LibreriaMV0804.errores.ErrorSeguridad;
+import com.LibreriaMV0804.errores.ErrorServicio;
+import com.LibreriaMV0804.repositorios.LibroRepositorio;
+import com.LibreriaMV0804.repositorios.PrestamoRepositorio;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

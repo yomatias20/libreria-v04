@@ -77,7 +77,7 @@
 
     <div> <!-- Columna 2 (foto y biografía). -->
       <div>
-        <img class="imagen-autor" th:if="${autor.foto == null}" src="Imágenes/Escritor.jpg">
+        <img class="imagen-autor" th:if="${autor.foto == null}" src="Imágenes/Generales/Escritor.jpg">
         <img class="imagen-autor" th:if="${autor.foto != null}" th:src="${'/foto/foto_autor/' + autor.id}">
       </div>
       <p class="texto-biografia" th:text="${autor.biografia}"></p>

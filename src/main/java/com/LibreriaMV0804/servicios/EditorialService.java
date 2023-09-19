@@ -1,9 +1,9 @@
 
-package com.LibreriaMV0802.servicios;
+package com.LibreriaMV0804.servicios;
 
-import com.LibreriaMV0802.entidades.Editorial;
-import com.LibreriaMV0802.errores.ErrorServicio;
-import com.LibreriaMV0802.repositorios.EditorialRepositorio;
+import com.LibreriaMV0804.entidades.Editorial;
+import com.LibreriaMV0804.errores.ErrorServicio;
+import com.LibreriaMV0804.repositorios.EditorialRepositorio;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;

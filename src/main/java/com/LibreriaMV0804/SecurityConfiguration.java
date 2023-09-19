@@ -1,7 +1,7 @@
 
-package com.LibreriaMV0802;
+package com.LibreriaMV0804;
 
-import com.LibreriaMV0802.servicios.ClienteService;
+import com.LibreriaMV0804.servicios.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,13 +1,13 @@
 
-package com.LibreriaMV0802.servicios;
+package com.LibreriaMV0804.servicios;
 
-import com.LibreriaMV0802.entidades.Cliente;
-import com.LibreriaMV0802.enumeraciones.Categoria;
-import com.LibreriaMV0802.enumeraciones.PermisoSession;
-import com.LibreriaMV0802.enumeraciones.Sexo;
-import com.LibreriaMV0802.errores.ErrorServicio;
-import com.LibreriaMV0802.repositorios.ClienteRepositorio;
-import com.LibreriaMV0802.utilidades.ValidacionPassword;
+import com.LibreriaMV0804.entidades.Cliente;
+import com.LibreriaMV0804.enumeraciones.Categoria;
+import com.LibreriaMV0804.enumeraciones.PermisoSession;
+import com.LibreriaMV0804.enumeraciones.Sexo;
+import com.LibreriaMV0804.errores.ErrorServicio;
+import com.LibreriaMV0804.repositorios.ClienteRepositorio;
+import com.LibreriaMV0804.utilidades.ValidacionPassword;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

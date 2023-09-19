@@ -1,5 +1,5 @@
 
-package com.LibreriaMV0802.entidades;
+package com.LibreriaMV0804.entidades;
 
 import java.io.Serializable;
 import javax.persistence.Column;

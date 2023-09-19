@@ -1,8 +1,8 @@
 
-package com.LibreriaMV0802.entidades;
+package com.LibreriaMV0804.entidades;
 
-import com.LibreriaMV0802.enumeraciones.Categoria;
-import com.LibreriaMV0802.enumeraciones.Sexo;
+import com.LibreriaMV0804.enumeraciones.Categoria;
+import com.LibreriaMV0804.enumeraciones.Sexo;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;

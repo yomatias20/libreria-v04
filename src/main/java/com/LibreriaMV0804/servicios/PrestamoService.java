@@ -1,10 +1,10 @@
 
-package com.LibreriaMV0802.servicios;
+package com.LibreriaMV0804.servicios;
 
-import com.LibreriaMV0802.entidades.Libro;
-import com.LibreriaMV0802.entidades.Prestamo;
-import com.LibreriaMV0802.errores.ErrorServicio;
-import com.LibreriaMV0802.repositorios.PrestamoRepositorio;
+import com.LibreriaMV0804.entidades.Libro;
+import com.LibreriaMV0804.entidades.Prestamo;
+import com.LibreriaMV0804.errores.ErrorServicio;
+import com.LibreriaMV0804.repositorios.PrestamoRepositorio;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

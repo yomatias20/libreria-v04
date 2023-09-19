@@ -1,8 +1,8 @@
 
-package com.LibreriaMV0802.servicios;
+package com.LibreriaMV0804.servicios;
 
-import com.LibreriaMV0802.entidades.Foto;
-import com.LibreriaMV0802.repositorios.FotoRepositorio;
+import com.LibreriaMV0804.entidades.Foto;
+import com.LibreriaMV0804.repositorios.FotoRepositorio;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

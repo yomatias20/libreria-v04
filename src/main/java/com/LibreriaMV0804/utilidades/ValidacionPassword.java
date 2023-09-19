@@ -1,7 +1,7 @@
 
-package com.LibreriaMV0802.utilidades;
+package com.LibreriaMV0804.utilidades;
 
-import com.LibreriaMV0802.errores.ErrorServicio;
+import com.LibreriaMV0804.errores.ErrorServicio;
 import org.springframework.stereotype.Service;
 
 @Service
