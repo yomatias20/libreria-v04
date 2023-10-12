@@ -3,6 +3,8 @@ package com.LibreriaMV1704.controladores;
 
 import com.LibreriaMV1704.entidades.Cliente;
 import com.LibreriaMV1704.enumeraciones.PermisoSession;
+import com.LibreriaMV1704.servicios.AutorService;
+import com.LibreriaMV1704.servicios.LibroService;
 import com.LibreriaMV1704.utilidades.CargaBDOriginal;
 import java.io.IOException;
 import jakarta.servlet.http.HttpSession;
@@ -19,11 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PortalController {
 
     @Autowired
-    private CargaBDOriginal cargaBDOriginal;
+    private AutorService autorService;
+
+    @Autowired
+    private LibroService libroService;
     
     @GetMapping
     public String index() throws IOException {
-        cargaBDOriginal.cargarFoto(5L, "src/main/resources/static/Imágenes/Autores/Michael Connelly.jpg");
+        autorService.cargarFotosInicio();
+        libroService.cargarFotosInicio();
         return "index/index.html";
     }
 

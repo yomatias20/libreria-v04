@@ -6,10 +6,12 @@ import com.LibreriaMV1704.errores.ErrorSeguridad;
 import com.LibreriaMV1704.errores.ErrorServicio;
 import com.LibreriaMV1704.repositorios.LibroRepositorio;
 import com.LibreriaMV1704.repositorios.PrestamoRepositorio;
+import com.LibreriaMV1704.utilidades.CargaBDOriginal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import jakarta.transaction.Transactional;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +33,9 @@ public class LibroService {
     
     @Autowired
     private FotoService fotoService;
+    
+    @Autowired
+    private CargaBDOriginal cargaBDOriginal;
 
     public Libro buscarLibroXIsbnS(String isbnStrIng) throws Exception {
         Long isbnLongIng;
@@ -212,6 +217,14 @@ public class LibroService {
     @Transactional
     public void guardar(Libro libro) {
         libroRepositorio.save(libro);
+    }
+    
+    public void cargarFotosInicio() throws IOException {
+        List<Libro> libros = libroRepositorio.findAll();
+        for (Libro libro : libros) {
+            cargaBDOriginal.cargarFoto(libro.getFoto().getId(), 
+                    "src/main/resources/static/Imágenes/Libros/" + libro.getTitulo() + ".jpg");
+        }
     }
     
 }
