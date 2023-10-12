@@ -5,9 +5,11 @@ import com.LibreriaMV1704.entidades.Autor;
 import com.LibreriaMV1704.entidades.Foto;
 import com.LibreriaMV1704.errores.ErrorServicio;
 import com.LibreriaMV1704.repositorios.AutorRepositorio;
+import com.LibreriaMV1704.utilidades.CargaBDOriginal;
 import java.util.List;
 import java.util.Optional;
 import jakarta.transaction.Transactional;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,9 @@ public class AutorService {
 
     @Autowired
     private FotoService fotoService;
+    
+    @Autowired
+    private CargaBDOriginal cargaBDOriginal;
 
     @Transactional
     public Autor cargarAutorS(String nombreForm, String bioForm, MultipartFile archivo) throws Exception {
@@ -77,6 +82,14 @@ public class AutorService {
     
     public List<Autor> listarAutoresAlfS() {
         return autorRepositorio.listarAutoresAlfR();
+    }
+    
+    public void cargarFotosInicio() throws IOException {
+        List<Autor> autores = autorRepositorio.findAll();
+        for (Autor autor : autores) {
+            cargaBDOriginal.cargarFoto(autor.getFoto().getId(), 
+                    "src/main/resources/static/Imágenes/Autores/" + autor.getNombre() + ".jpg");
+        }
     }
     
 }
